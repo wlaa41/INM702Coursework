@@ -22,10 +22,30 @@ class gridgen():
 
     def fillnaughty(self):
               
-        s = [  [0, 0, 0, 0]
-              ,[1, 1, 1, 0]
-              ,[1, 1, 1, 0]
-              ,[1, 1, 1, 0]
+        s = [  [0, 0, 0, 0, 0 ]
+              ,[1, 1, 1, 1, 0 ]
+              ,[1, 1, 1, 1, 0 ]
+              ,[1, 1, 1, 1, 0 ]
+              ,[1, 1, 1, 1, 0 ]
+        ]
+        self.grid = np.array(s)
+
+    def fillreallynaughtyUP(self):
+              
+        s = [[1 ,9 , 1, 0, 0]
+            ,[1 ,9 , 1, 9, 0]
+            ,[1 ,1 , 1, 9, 0]
+            ,[9 ,9 , 9, 9, 0]
+            ,[9 ,9 , 9, 9, 0]
+        ]
+        self.grid = np.array(s)
+    def fillreallynaughtyLEFTUP(self):
+              
+        s = [ [0, 0 , 0, 0,  0]
+             ,[1 ,1 , 9, 1,  0]
+             ,[0, 0 , 0, 0,  0]
+             ,[0, 1 , 9, 1,  1]
+             ,[0, 0,  0, 0,  0]
         ]
         self.grid = np.array(s)
 

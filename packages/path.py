@@ -9,6 +9,7 @@ class start():
         self.incomingcell = None
         self.path2startadjacent = []
         self.currentcellweight = 0
+        self.currentlocation = (0,0)
     def updateadjacent(self): 
         # def addpath2startAdjacent(self):
         pass
@@ -33,12 +34,36 @@ class path():
         self.weight = self.incomingcell.weight + self.currentcellweight
         self.path2start = [self.currentlocation] + self.incomingcell.path2start
 
-
+    def addadjacentcellasNOGO(self,gridsize):
+        print('.....................................................')
+        print(f'      {id(self)}---{id(self.incomingcell)}')
+        print('.....................................................')
+        print(f'incomingcell.path2startadjacent {self.incomingcell.path2startadjacent}')
+        self.path2startadjacent = self.path2startadjacent + self.incomingcell.path2startadjacent
+        for point in self.addpath2startAdjacent(gridsize):
+            # print(f'      {id(self)} point:{point} path2start:{self.path2start} CON {point not in self.path2start}')
+            
+            if point not in self.path2start:
+                if point not in self.path2startadjacent:
+                    self.path2startadjacent.append(point)
+        print(f'path: {self.path2start}')
+        print(f'adj: {self.path2startadjacent}')
+                
         
 
-    def addpath2startAdjacent(self):
-        x,y = self.currentlocation
-        return [ (x+1,y),(x-1,y),(x,y+1),(x , y -1)]
+    def addpath2startAdjacent(self,gridsize):
+        x,y = self.incomingcell.currentlocation
+        n,m = gridsize
+        adjacent = []
+        if x-1 > 0:
+            adjacent.append((x-1, y))
+        if y-1 > 0:
+            adjacent.append((x, y-1))
+        if x+1 < n:
+            adjacent.append((x+1, y))
+        if y+1 < m:
+            adjacent.append((x, y+1))
+        return adjacent
 
         
     def __str__(self):
