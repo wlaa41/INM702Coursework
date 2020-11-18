@@ -20,6 +20,14 @@ class gridgen():
             
         return np.random.randint(min,max, (self.width, self.length))
 
+    ############ TESTING ARRAYS ###########
+    def easytest(self):
+              
+        s = [    [0, 0, 0 ]
+                ,[1, 1, 2 ]
+                ,[1, 1, 0 ]
+        ]
+        self.grid = np.array(s)
     def fillnaughty(self):
               
         s = [  [0, 0, 0, 0, 0 ]
@@ -41,9 +49,9 @@ class gridgen():
         self.grid = np.array(s)
     def fillreallynaughtyLEFTUP(self):
               
-        s = [ [0, 0 , 0, 0,  0]
-             ,[1 ,1 , 9, 1,  0]
-             ,[0, 0 , 0, 0,  0]
+        s = [ [2, 0 , 0, 0,  0]
+             ,[3 ,3 , 1, 2,  0]
+             ,[0, 0 , 0, 1,  0]
              ,[0, 1 , 9, 1,  1]
              ,[0, 0,  0, 0,  0]
         ]

@@ -10,16 +10,16 @@ from rutaul.prnt import pg,pm,pr,py,pb
 
 
 # ------------------- Creating the random grid
-gridsize = (15, 15)
+gridsize = (5, 5)
 gridlength,gridwidth = gridsize
 visitedlist = [(0, 0)]
 d = grid.gridgen(gridsize) # Creating the grid ................
-d.reachedpointgrid = 999 * np.ones(gridsize).astype(int)
+d.reachedpointgrid = 99999 * np.ones(gridsize).astype(int)
 
 pr(d.reachedpointgrid )
 # d.fillnaughty()
-# d.fillreallynaughtyLEFTUP()
-# d.fillreallynaughtyLEFTUP()
+# d.fillreallynaughty()D
+d.fillreallynaughtyLEFTUP()
 # d.grid = np.ones(gridsize)
 # d.easytest()
 pg(d.grid)
@@ -44,7 +44,7 @@ notreachedend = True
 def loopforthezeros(path):
     x, y = path.currentlocation
 
-    # pdb.set_trace()#
+    pdb.set_trace()
     if x + 1 < gridlength:
         if d.grid[x+1, y] == 0:
             py('ADD Zero DOWN')
@@ -52,7 +52,7 @@ def loopforthezeros(path):
 
     if y + 1 < gridwidth:
         if d.grid[x, y+1] == 0:
-            # pdb.set_trace()#
+            pdb.set_trace()
             py('ADD Zero RIGHT')
             addzeroPATH(path, x, y+1,'right')
 
@@ -65,21 +65,20 @@ def loopforthezeros(path):
         if d.grid[x, y-1] == 0:
             py('ADD Zero LEFT')
             addzeroPATH(path, x, y-1, 'left')
-    # # pdb.set_trace()#
+    # pdb.set_trace()
 
 
 def addzeroPATH(path: pth, x, y,info):
     # check rules
     # if the cell has been visited by the path or in the adjusant locationf
-    if path.weight + d.grid[x, y] < d.reachedpointgrid[x, y]:
-        pm('            addzeroPATH')
-        # pdb.set_trace()#
+    pm('            addzeroPATH')
+    pdb.set_trace()
 
-        if (x, y) not in path.path2start:
-            pr(f'add ZERO {info}')
-            tobeaddedThencheckiftheagentarrive(path, x, y)
-            loopforthezeros(
-                to_be_added2seedingpath[len(to_be_added2seedingpath)-1])
+    if (x, y) not in path.path2start:
+        pr(f'add ZERO {info}')
+        tobeaddedThencheckiftheagentarrive(path, x, y)
+        loopforthezeros(
+            to_be_added2seedingpath[len(to_be_added2seedingpath)-1])
 
 # ----------- Creating a path at any node and examin
 # one of the adjacent direction UP DOWN LEFT RIGHT
@@ -150,22 +149,21 @@ def tobeaddedThencheckiftheagentarrive(path: pth, x, y):
     """
     # Checking if the cell has been visited by another path in shorter time 
     # if yes then no path will be created
-    # pdb.set_trace()#
+    pdb.set_trace()
     if path.weight + d.grid[x, y] < d.reachedpointgrid[x,y]:
         d.reachedpointgrid[x,y] = path.weight + d.grid[x,y] 
-        temp = pth.path((x, y), d.grid[x, y], d.grid[x, y], path)
-        to_be_added2seedingpath.append( temp)
-        checkiftheagentarrive(temp)
-        # loopforthezeros(temp)
-        
+        to_be_added2seedingpath.append(
+            pth.path((x, y), d.grid[x, y], d.grid[x, y], path))
+        checkiftheagentarrive(
+            to_be_added2seedingpath[len(to_be_added2seedingpath)-1])
+    
 
 # Check if one of the pathes reachs the end point
 def checkiftheagentarrive(path):
     x,y = path.currentlocation
     
     if (x, y) == (gridlength-1,gridwidth-1):
-    
-        arrivingweight = path.weight# + d.grid[x, y]
+        arrivingweight = path.weight + d.grid[x, y]
         d.reachedpointgrid[x,y]
         global notreachedend 
         notreachedend = False
@@ -205,9 +203,8 @@ def checkiftheagentarrive(path):
 #################################################################################################
 
 seedingpath.append(pth.path((0, 0), 0, 0, pth.start(0, 0)))
-d.reachedpointgrid[0, 0] = 0
 loopforthezeros(seedingpath[0])
-
+d.reachedpointgrid[0,0]=0
 py(f'Before looping seedignpath : {seedingpath}')
 
 seedingpath = seedingpath + to_be_added2seedingpath
@@ -233,33 +230,30 @@ def start():
         py(f'After seedignpath : {seedingpath}')
         py(f'Number of seedignpath : {len(seedingpath)}')
         # pg(seedingpath)
-        if len(seedingpath) == 0:
-            notreachedend = False
         templist4iteration = seedingpath.copy()
-        for path in templist4iteration:
+        for path in seedingpath:
             # py(path.tick)
             if path.tick == 0:
                 # pg(seedingpath)
-                # pdb.set_trace()
+                pdb.set_trace()
                 createpath(path)
                 loopforthezeros(path)  
-                # pdb.set_trace()#
+                pdb.set_trace()
 
                 path.status="DONE Seeding"
                 DONEseedingpath.append(path)
                 seedingpath.remove(path)
                 
-                # pdb.set_trace()#
+                pdb.set_trace()
                 # pm(f'Before adding adj adj:{path.path2startadjacent}')
                 path.addadjacentcellasNOGO(gridsize) # a method to add the neighboring cells in the path to avoid looking for a path that is not neccesory
                 # pm(f'After adding adj adj:{path.path2startadjacent}')
             else:
                 path.tick-=1
-                Tick += 1
             if notreachedend == False:
                 break
         seedingpath = seedingpath + to_be_added2seedingpath
-        
+        Tick+=1
     # pg(DONEseedingpath)
         
 
