@@ -10,19 +10,26 @@ from rutaul.prnt import pg,pm,pr,py,pb
 
 
 # ------------------- Creating the random grid
-gridsize = (15, 15)
-gridlength,gridwidth = gridsize
-visitedlist = [(0, 0)]
-d = grid.gridgen(gridsize) # Creating the grid ................
-d.reachedpointgrid = 999 * np.ones(gridsize).astype(int)
+gridsize = (15, 11)
 
-pr(d.reachedpointgrid )
-# d.fillnaughty()
+d = grid.gridgen(gridsize) # Creating the grid ................
+
+# pr(d.reachedpointgrid )
+# # d.fillnaughty()
+# gridsize = d.fillmaddness()
+gridsize = d.jiktest()
+gridsize = d.fillreallynaughtyLEFTUP()
+# gridlength,gridwidth = gridsize
+# d.reachedpointgrid = 999 * np.ones(gridsize).astype(int)
 # d.fillreallynaughtyLEFTUP()
 # d.fillreallynaughtyLEFTUP()
 # d.grid = np.ones(gridsize)
+# d.grid = d.fillgridMOREZeros(morezeroby=7)
 # d.easytest()
-pg(d.grid)
+# pg(d.grid)
+gridlength, gridwidth = gridsize
+visitedlist = [(0, 0)]
+d.reachedpointgrid = 999 * np.ones(gridsize).astype(int)
 
 # ---------------------------------------------
 
@@ -154,6 +161,7 @@ def tobeaddedThencheckiftheagentarrive(path: pth, x, y):
     if path.weight + d.grid[x, y] < d.reachedpointgrid[x,y]:
         d.reachedpointgrid[x,y] = path.weight + d.grid[x,y] 
         temp = pth.path((x, y), d.grid[x, y], d.grid[x, y], path)
+
         to_be_added2seedingpath.append( temp)
         checkiftheagentarrive(temp)
         # loopforthezeros(temp)
@@ -192,10 +200,65 @@ def checkiftheagentarrive(path):
         pb('     \/      \/                             \/      \/         ') 
         # print(f' {path.path2start}  W: {path.weight}')
         pr('...............................................................')
-
-
+        drawpath(path)
 # Looking in one of the four direction for zeros nodes so we can add the braches of those nodes 
 # right away as zero stand for no time the function berform test then call addzero function
+
+def drawpath(path):
+    grid = d.grid.tolist()
+    z = np.ones(gridsize).astype(int)
+
+    import matplotlib
+    import matplotlib.pyplot as plt
+    from matplotlib.colors import BoundaryNorm
+    from matplotlib.ticker import MaxNLocator
+    t = 0
+    for cell in path.path2start:
+        grid[cell[0]][cell[1]] = '-'
+        z[gridlength- 1- cell[0]][cell[1]] = t
+        # t+=1
+ 
+ 
+    x = np.arange(-.5, gridlength+.5, 1)  # len = 11
+    y = np.arange(-.5, gridwidth+.5, 1)  # len = 7
+    cmap = plt.get_cmap('Spectral')  #
+    plt.axis('off')
+    # pdb.set_trace()
+
+    plt.style.use('dark_background')
+    z.reshape(gridwidth,gridlength)
+    plt.pcolormesh(y, x, z, cmap=cmap, edgecolor='black',snap= True)
+
+    # pdb.set_trace()
+
+    for row in range(0, gridlength):
+        for cell in range(0, gridwidth):
+            # if row != 0 or cell !=0 :
+            #     if row != gridlength -1 or cell != gridwidth -1:
+
+            plt.text(cell, row, d.grid[gridlength - row-1][cell], color='white', ha='center', va='center', fontsize=10)
+    # pdb.set_trace()
+
+    # plt.text(gridlength-1, 0, 'End', color='white',
+    #          ha='center', va='center',alpha = .5, fontsize=8)
+    # plt.text(0, gridwidth-1, 'Start', color='white',
+    #          ha='center', va='center',alpha = .5, fontsize=8)
+
+    # pg('\n'.join(['  '.join([str(cell) for cell in row]) for row in grid]))
+    # print('')
+    # print('\n'.join(['  '.join([str(cell) for cell in row]) for row in d.grid]))
+
+
+
+
+
+
+
+    plt.show()
+
+
+    
+
 
 
 #################################################################################################
