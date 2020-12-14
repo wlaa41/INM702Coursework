@@ -10,7 +10,7 @@ from rutaul.prnt import pg,pm,pr,py,pb
 
 
 # ------------------- Creating the random grid
-gridsize = (15, 11)
+gridsize = (200, 200)
 
 d = grid.gridgen(gridsize) # Creating the grid ................
 

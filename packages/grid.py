@@ -41,6 +41,38 @@ class gridgen():
                 ,[1, 1, 0 ]
         ]
         self.grid = np.array(s)    
+        return self.grid.shape
+        
+    def test1(self):
+                
+        s = [ [0, 1, 0]
+             ,[0, 1, 0]
+             ,[9, 0, 7]
+        ]
+        self.grid = np.array(s)    
+        return self.grid.shape
+
+    def test2(self):
+
+        s = [ [4, 9, 1, 3]
+             ,[0, 0, 7, 1]
+             ,[2, 0, 7, 9]
+             ,[1, 2, 1, 9]]
+        self.grid = np.array(s)
+        return self.grid.shape
+
+        
+    def fillava(self):
+
+        s = [    [5, 5, 5]
+                ,[5, 5, 5]
+                ,[5, 5, 5]
+                ,[5, 5, 5]]
+        self.grid = np.array(s)
+        return self.grid.shape
+
+
+
 
     def jiktest(self):
               
@@ -54,12 +86,13 @@ class gridgen():
     def fillnaughty(self):
               
         s = [  [0, 0, 0, 0, 0 ]
-              ,[1, 1, 1, 1, 0 ]
-              ,[1, 1, 1, 1, 0 ]
+              ,[1, 1, 0, 1, 0 ]
+              ,[1, 1, 0, 1, 0 ]
               ,[1, 1, 1, 1, 0 ]
               ,[1, 1, 1, 1, 0 ]
         ]
         self.grid = np.array(s)
+        return self.grid.shape
 
     def fillreallynaughtyUP(self):
               
@@ -70,6 +103,7 @@ class gridgen():
             ,[9 ,9 , 9, 9, 0]
         ]
         self.grid = np.array(s)
+        return self.grid.shape
     def fillreallynaughtyLEFTUP(self):
               
         s = [ [2, 0 , 0, 0,  0]

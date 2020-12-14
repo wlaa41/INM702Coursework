@@ -35,9 +35,9 @@ class path():
         self.path2start = [self.currentlocation] + self.incomingcell.path2start
 
     def addadjacentcellasNOGO(self,gridsize):
-        print('.........................................................................')
-        print(f'      Path ID: {id(self.incomingcell)} --> Branch ID: {id(self)}')
-        print('.........................................................................')
+        # print('.........................................................................')
+        # print(f'      Path ID: {id(self.incomingcell)} --> Branch ID: {id(self)}')
+        # print('.........................................................................')
         # print(f'incomingcell.path2startadjacent {self.incomingcell.path2startadjacent}')
         self.path2startadjacent = self.path2startadjacent + self.incomingcell.path2startadjacent
         for point in self.addpath2startAdjacent(gridsize):
@@ -46,8 +46,8 @@ class path():
             if point not in self.path2start:
                 if point not in self.path2startadjacent:
                     self.path2startadjacent.append(point)
-        print(f'path: {self.path2start}')
-        print(f'adj: {self.path2startadjacent}')
+        # print(f'path: {self.path2start}')
+        # print(f'adj: {self.path2startadjacent}')
                 
         
 
